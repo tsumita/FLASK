@@ -1,0 +1,8 @@
+<!-- templates/index.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h1>{{ message }}</h1>
+<p>
+    <img src="{{ url_for('static', filename='images/abema.jpg')}}" alt="abema">
+</p>
+{% endblock %}
