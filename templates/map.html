@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ja" dir="ltr">
+<head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="UTF-8">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 10;
+            padding: 0;
+        }
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<p><textarea id="argument"></textarea></p>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmalf-vb-DX66YK3LMsH0OC7IxYq-szls"></script>
+
+<input type="text" placeholder="enter your access key here" class="js--key"><input type="button" value="apply" class="js--apply" />
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+
+<script>
+
+    var map;
+    var argumentElement = document.getElementById( "argument" ) ;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 38, lng: 138},
+            zoom: 5
+        });
+    }
+    initMap();
+
+    // Event
+    map.addListener( "click", function ( argument ) {
+
+        argumentElement.value = argument.latLng ;
+        // try{ argument = typeof argument == "object" ? JSON.stringify( argument ) : argument ; }catch(e){}
+        // argumentElement.value = argument.split(":") ;
+
+        // InfoWindow
+        var infoWindow = new google.maps.InfoWindow( {
+            position: new google.maps.LatLng( argument.latLng.lat(), argument.latLng.lng() ) ,
+            content: "<h3>location</h3><p> "+ argument.latLng.toString() +"</p>" ,
+        } ) ;
+
+        infoWindow.open( map ) ;
+
+        console.log( argument ) ;
+    } ) ;
+
+    // Marker
+    // var marker = new google.maps.Marker( {
+    //     map: map ,
+    //     position: new google.maps.LatLng( 35.71, 139.8107 ) ,
+    // } ) ;
+
+
+
+
+ 
+    (function(){
+     
+      var url = 'https://api.gnavi.co.jp/RestSearchAPI/20150630/?callback=?';
+      var params = {
+        keyid: '8b7ab1c85452261628d9955b8c3d5d51',
+        format: 'json',
+        latitude: 35.670083,
+        longitude: 139.763267,
+        range: 1
+      };
+     
+      var showResult = function(result){
+        if ( result.total_hit_count > 0 ) {
+          var res = '';
+          alert( result.total_hit_count + '件の結果が見つかりました。\n' );
+          for ( var i in result.rest ){
+              res += result.rest[i].id + ' ' + result.rest[i].name + ' ' + result.rest[i].access.line + ' ' + result.rest[i].access.station + ' ' + result.rest[i].access.walk + '分\n';
+          }
+          alert(res);
+        } else {
+          alert( '検索結果が見つかりませんでした。' );
+        }
+      }
+     
+      $(document).on('click', '.js--apply', function(){
+        params.keyid = $('.js--key').val();
+        $.getJSON(url, params, function(result){
+          showResult(result);
+        });
+      });
+     
+    })(jQuery);
+
+
+</script>
+</body>
+</html>
+
+

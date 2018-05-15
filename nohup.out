@@ -1,5 +1,0 @@
- * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-127.0.0.1 - - [25/Dec/2017 01:23:56] "POST /callback HTTP/1.1" 500 -
-127.0.0.1 - - [25/Dec/2017 01:24:10] "POST /callback HTTP/1.1" 500 -
-127.0.0.1 - - [25/Dec/2017 01:24:18] "GET / HTTP/1.1" 200 -
-127.0.0.1 - - [25/Dec/2017 01:24:25] "GET / HTTP/1.1" 200 -
